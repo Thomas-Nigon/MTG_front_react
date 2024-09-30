@@ -9,12 +9,21 @@ import {
 interface BrowserFilterProps {
   filterName: string;
   filterContent: string[];
+  setFilter: (filter: string) => void;
 }
+const handleChange = (value: string, setFilter: (filter: string) => void) => {
+  console.log(value);
+  setFilter(value);
+};
 
-const BrowserFilter = ({ filterName, filterContent }: BrowserFilterProps) => {
+const BrowserFilter = ({
+  filterName,
+  filterContent,
+  setFilter,
+}: BrowserFilterProps) => {
   return (
     <>
-      <Select>
+      <Select onValueChange={(value) => handleChange(value, setFilter)}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder={filterName} />
         </SelectTrigger>

@@ -56,7 +56,7 @@ const BrowseSideMenu = ({
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger>Open</SheetTrigger>
+        <SheetTrigger></SheetTrigger>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Add cards to your deck</SheetTitle>

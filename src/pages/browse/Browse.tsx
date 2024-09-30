@@ -6,26 +6,20 @@ import SingleCard from "@/components/SingleCard/SingleCard";
 import BrowseSideMenu from "@/components/BrowseSideMenu/BrowseSideMenu";
 import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBar";
 import BrowsePagination from "./components/Pagination/BrowsePagination";
-import BrowserFilter from "@/components/BrowserFilter/BrowserFilter";
 
 export default function Browse() {
   const [cardList, setCardList] = useState<CardInterface[]>([]);
-  const [pageSize, setPageSize] = useState(100);
-  const [currentPage, setCurrentPage] = useState(3);
+  const [cardsQueries, setCardQueries] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pageCount, setPageCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [currentDeck, setcurrentDeck] = useState<CardInterface[]>([]);
-  const pageSizeFilter = ["10", "20", "50", "100"];
 
   useEffect(() => {
-    const getCards = async (
-      page: number,
-      size: number,
-      set: string,
-      order: string
-    ): Promise<CardPromise[]> => {
+    const getCards = async (cardsQueries: string): Promise<CardPromise[]> => {
       const response = await fetch(
-        `http://localhost:5050/cards?page=${page}&size=${size}`
+        `http://localhost:5050/cards?${cardsQueries}`
       );
       const data = await response.json();
       console.log(data);
@@ -33,8 +27,8 @@ export default function Browse() {
       setPageCount(data.pageCount);
       return data;
     };
-    getCards(currentPage, pageSize, "", "");
-  }, [currentPage, pageSize]);
+    getCards(cardsQueries);
+  }, [cardsQueries]);
 
   const AddCard = (card: CardInterface) => {
     setIsOpen(true);
@@ -57,15 +51,14 @@ export default function Browse() {
   return (
     <main className="p-2 mt-20">
       <header>
-        <h2 className="mb-4">Browse cards and add them to your deck</h2>
-        <BrowserFilterBar />
-        <article className="flex flex-row gap-4 m-5">
-          <BrowsePagination
-            currentPage={currentPage}
-            setPage={setCurrentPage}
-          />
-          <BrowserFilter filterName="size" filterContent={pageSizeFilter} />
-        </article>
+        <h2 className="mb-4">Browse cards and add them to your deck:</h2>
+
+        <BrowserFilterBar
+          cardQueries={cardsQueries}
+          setCardQueries={setCardQueries}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </header>
       <div className="flex flex-row">
         <section className={styles.cardsContainer}>

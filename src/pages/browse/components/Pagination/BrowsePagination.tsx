@@ -7,7 +7,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import React from "react";
 
 interface BrowsePaginationProps {
   currentPage: number;
@@ -22,7 +21,7 @@ function BrowsePagination({ currentPage, setPage }: BrowsePaginationProps) {
           <PaginationPrevious onClick={() => setPage(currentPage - 1)} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink onClick={() => setPage(currentPage - 1)}>
+          <PaginationLink onClick={() => setPage(currentPage)}>
             {currentPage}
           </PaginationLink>
           <PaginationLink onClick={() => setPage(currentPage + 1)}>
