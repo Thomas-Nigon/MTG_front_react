@@ -38,3 +38,10 @@ export interface UserContextType {
   defaultUser: myUserContext;
   setUser: React.Dispatch<React.SetStateAction<myUserContext>>;
 }
+
+export interface CardPromise {
+  data: CardInterface[];
+  total: number;
+  page: number;
+  pageCount: number;
+}
