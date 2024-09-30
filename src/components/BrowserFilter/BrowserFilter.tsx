@@ -8,10 +8,15 @@ import {
 
 interface BrowserFilterProps {
   filterName: string;
-  filterContent: string[];
+  filterContent: { name: string; value: string }[];
   setFilter: (filter: string) => void;
 }
 const handleChange = (value: string, setFilter: (filter: string) => void) => {
+  console.log("clicked");
+  console.log(value);
+  setFilter(value);
+};
+const test = (value: string, setFilter: (filter: string) => void) => {
   console.log(value);
   setFilter(value);
 };
@@ -29,8 +34,12 @@ const BrowserFilter = ({
         </SelectTrigger>
         <SelectContent>
           {filterContent.map((item) => (
-            <SelectItem key={item} value={item}>
-              {item}
+            <SelectItem
+              onClick={() => test(item.value, setFilter)}
+              key={item.name}
+              value={item.value}
+            >
+              {item.name}
             </SelectItem>
           ))}
         </SelectContent>

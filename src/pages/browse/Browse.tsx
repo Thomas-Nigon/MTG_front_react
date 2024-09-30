@@ -17,6 +17,7 @@ export default function Browse() {
   const [currentDeck, setcurrentDeck] = useState<CardInterface[]>([]);
 
   useEffect(() => {
+    console.log("fetch card use effect");
     const getCards = async (cardsQueries: string): Promise<CardPromise[]> => {
       const response = await fetch(
         `http://localhost:5050/cards?${cardsQueries}`
