@@ -1,5 +1,5 @@
 import { CardInterface } from "@/types-d";
-
+import styles from "./SingleCard.module.css";
 import {
   Card,
   CardContent,
@@ -21,7 +21,7 @@ const SingleCard = ({ card, addCard }: SingleCardProps) => {
     <article key={card.id + card.name}>
       <Card className="w-[300px] bg-accent">
         <CardHeader>
-          <CardTitle>{card.name}</CardTitle>
+          <CardTitle className={styles.truncate}>{card.name}</CardTitle>
           <CardDescription></CardDescription>
         </CardHeader>
         <CardContent>

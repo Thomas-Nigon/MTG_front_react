@@ -3,34 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   list: [
     {
-      name: "Color",
-
-      value: "color",
-      label: "color",
-    },
-    {
       name: "White",
-      value: "white",
+      value: "W",
       label: "White",
     },
     {
       name: "Black",
-      value: "black",
+      value: "B",
       label: "Black",
     },
     {
       name: "Red",
-      value: "red",
+      value: "R",
       label: "Red",
     },
     {
       name: "Blue",
-      value: "blue",
+      value: "U",
       label: "Blue",
     },
     {
       name: "Green",
-      value: "green",
+      value: "G",
       label: "Green",
     },
   ],

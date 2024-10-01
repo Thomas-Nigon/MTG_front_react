@@ -53,12 +53,12 @@ export default function Browse() {
     <main className="p-2 mt-20">
       <header>
         <h2 className="mb-4">Browse cards and add them to your deck:</h2>
-
         <BrowserFilterBar
           cardQueries={cardsQueries}
           setCardQueries={setCardQueries}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          pageCount={pageCount}
         />
       </header>
       <div className="flex flex-row">
@@ -76,7 +76,11 @@ export default function Browse() {
         />
       </div>
       <footer>
-        <BrowsePagination currentPage={currentPage} setPage={setCurrentPage} />
+        <BrowsePagination
+          currentPage={currentPage}
+          setPage={setCurrentPage}
+          pageCount={pageCount}
+        />
       </footer>
     </main>
   );

@@ -1,13 +1,17 @@
 import BrowsePagination from "@/pages/browse/components/Pagination/BrowsePagination";
 import BrowserFilter from "../BrowserFilter/BrowserFilter";
+
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 interface BrowserFilterBarProps {
   setCardQueries: (queries: string) => void;
   cardQueries: string;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  pageCount: number;
 }
 
 const BrowserFilterBar = ({
@@ -15,6 +19,7 @@ const BrowserFilterBar = ({
   setCardQueries,
   currentPage,
   setCurrentPage,
+  pageCount,
 }: BrowserFilterBarProps) => {
   const [pageSize, setPageSize] = useState("100");
   const [color, setColor] = useState("");
@@ -23,13 +28,12 @@ const BrowserFilterBar = ({
   const [set, setSet] = useState("");
 
   useEffect(() => {
-    console.log("useEffect updated");
-    console.log(color);
     setCardQueries(
       `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${set}`
     );
     console.log(cardQueries);
   }, [pageSize, currentPage, color, type, rarity, set]);
+
   const resetFilters = () => {
     setColor("");
     setType("");
@@ -41,66 +45,49 @@ const BrowserFilterBar = ({
     );
     window.location.reload();
   };
+
   const pageSizeFilter = [
     { name: "10", value: "10" },
     { name: "20", value: "20" },
     { name: "50", value: "50" },
     { name: "100", value: "100" },
   ];
+
+  const rarityFilter = useSelector(
+    (state: RootState) => state.filterRarity.list
+  );
+  const colorFilter = useSelector((state: RootState) => state.filterColor.list);
   const filterArray = [
     {
-      name: "Color",
-      filterContent: [
-        { name: "Red", value: "R" },
-        { name: "Blue", value: "U" },
-        { name: "Green", value: "G" },
-        { name: "White", value: "W" },
-        { name: "Black", value: "B" },
-        { name: "All", value: "all" },
-      ],
-
+      name: "Color 1",
+      filterContent: colorFilter,
       setFilter: setColor,
     },
-    /*    {
-      name: "Type",
-      filterContent: [
-        { name: "Creature", value: "creature" },
-        { name: "Land", value: "land" },
-        { name: "Spell", value: "spell" },
-        { name: "Enchantment", value: "enchantment" },
-        { name: "Artifact", value: "artifact" },
-      ],
-      setFilter: setType,
-    }, */
+    {
+      name: "Color 2",
+      filterContent: colorFilter,
+      setFilter: setColor,
+    },
+    {
+      name: "Color 3",
+      filterContent: colorFilter,
+      setFilter: setColor,
+    },
+    {
+      name: "Color 4",
+      filterContent: colorFilter,
+      setFilter: setColor,
+    },
+    {
+      name: "Color 5",
+      filterContent: colorFilter,
+      setFilter: setColor,
+    },
     {
       name: "Rarity",
-      filterContent: [
-        { name: "Common", value: "common" },
-        { name: "Uncommon", value: "uncommon" },
-        { name: "Rare", value: "rare" },
-        { name: "Mythic Rare", value: "mythic" },
-      ],
+      filterContent: rarityFilter,
       setFilter: setRarity,
     },
-    /*  {
-      name: "Set",
-      filterContent: [
-        { name: "Core Set", value: "Core Set" },
-        { name: "Modern Horizons", value: "Modern Horizons" },
-        { name: "Commander Legends", value: "Commander Legends" },
-      ],
-      setFilter: setSet,
-    }, */
-    /*  {
-      name: "Cards per page",
-      filterContent: [
-        { name: "10", value: "10" },
-        { name: "20", value: "20" },
-        { name: "50", value: "50" },
-        { name: "100", value: "100" },
-      ],
-      setFilter: setPageSize,
-    }, */
   ];
 
   return (
@@ -120,7 +107,11 @@ const BrowserFilterBar = ({
         </li>
       </ul>
       <article className="flex flex-col gap-4 m-5 justify-center items-center">
-        <BrowsePagination currentPage={currentPage} setPage={setCurrentPage} />
+        <BrowsePagination
+          currentPage={currentPage}
+          setPage={setCurrentPage}
+          pageCount={pageCount}
+        />
         <BrowserFilter
           filterName="size"
           filterContent={pageSizeFilter}
