@@ -25,7 +25,14 @@ const SingleCard = ({ card, addCard }: SingleCardProps) => {
           <CardDescription></CardDescription>
         </CardHeader>
         <CardContent>
-          <img src={card.image_uris.normal} alt={card.name} />
+          <img
+            src={
+              card.image_uris.normal === "no_image"
+                ? "src/assets/cardAssets/1.webp"
+                : card.image_uris.normal
+            }
+            alt={card.name}
+          />
         </CardContent>
         <CardFooter className="flex justify-center ">
           <Button className="w-32" onClick={() => addCard(card)}>
