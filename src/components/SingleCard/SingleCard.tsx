@@ -26,6 +26,7 @@ const SingleCard = ({ card, addCard }: SingleCardProps) => {
         </CardHeader>
         <CardContent>
           <img
+            className="hover:scale-110 transition-all duration-200"
             src={
               card.image_uris.normal === "no_image"
                 ? "src/assets/cardAssets/1.webp"

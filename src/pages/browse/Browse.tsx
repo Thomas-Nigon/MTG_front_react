@@ -1,11 +1,12 @@
 import styles from "./browse.module.css";
 import { useEffect, useState } from "react";
-import { CardInterface, CardPromise } from "@/types-d";
+import { CardInterface } from "@/types-d";
 
 import SingleCard from "@/components/SingleCard/SingleCard";
 import BrowseSideMenu from "@/components/BrowseSideMenu/BrowseSideMenu";
-import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBar";
 import BrowsePagination from "./components/Pagination/BrowsePagination";
+import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBAr";
+import { getAllCards } from "@/lib/getAllCards";
 
 export default function Browse() {
   const [cardList, setCardList] = useState<CardInterface[]>([]);
@@ -15,19 +16,15 @@ export default function Browse() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDeck, setcurrentDeck] = useState<CardInterface[]>([]);
 
+  const fetchData = async (cardsQueries: string) => {
+    const data = await getAllCards(cardsQueries);
+    console.log(data.data);
+    setCardList(data.data);
+    setPageCount(data.pageCount);
+    return data;
+  };
   useEffect(() => {
-    console.log("fetch card use effect");
-    const getCards = async (cardsQueries: string): Promise<CardPromise[]> => {
-      const response = await fetch(
-        `http://localhost:5050/cards?${cardsQueries}`
-      );
-      const data = await response.json();
-      console.log(data);
-      setCardList(data.data);
-      setPageCount(data.pageCount);
-      return data;
-    };
-    getCards(cardsQueries);
+    fetchData(cardsQueries);
   }, [cardsQueries]);
 
   const AddCard = (card: CardInterface) => {
@@ -41,7 +38,6 @@ export default function Browse() {
         )
       );
     }
-    console.log(currentDeck);
   };
 
   const RemoveCard = (card: CardInterface) => {

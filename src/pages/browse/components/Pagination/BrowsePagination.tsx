@@ -24,23 +24,35 @@ function BrowsePagination({
       <PaginationContent>
         {currentPage > 1 && (
           <PaginationItem>
-            <PaginationPrevious onClick={() => setPage(currentPage - 1)} />
+            <PaginationPrevious
+              className="cursor-pointer"
+              onClick={() => setPage(currentPage - 1)}
+            />
           </PaginationItem>
         )}
         <div className="hidden sm:flex">
           <PaginationItem>
-            <PaginationLink onClick={() => setPage(currentPage)}>
+            <PaginationLink
+              className="cursor-pointer"
+              onClick={() => setPage(currentPage)}
+            >
               {currentPage}
             </PaginationLink>
 
             {currentPage + 1 < pageCount && (
-              <PaginationLink onClick={() => setPage(currentPage + 1)}>
+              <PaginationLink
+                className="cursor-pointer"
+                onClick={() => setPage(currentPage + 1)}
+              >
                 {currentPage + 1}
               </PaginationLink>
             )}
 
             {currentPage + 2 < pageCount && (
-              <PaginationLink onClick={() => setPage(currentPage + 2)}>
+              <PaginationLink
+                className="cursor-pointer"
+                onClick={() => setPage(currentPage + 2)}
+              >
                 {currentPage + 2}
               </PaginationLink>
             )}
@@ -49,13 +61,19 @@ function BrowsePagination({
 
         <PaginationItem className="flex">
           <PaginationEllipsis />
-          <PaginationLink onClick={() => setPage(pageCount)}>
+          <PaginationLink
+            className="cursor-pointer"
+            onClick={() => setPage(pageCount)}
+          >
             {pageCount}
           </PaginationLink>
         </PaginationItem>
         {currentPage + 1 < pageCount && (
           <PaginationItem>
-            <PaginationNext onClick={() => setPage(currentPage + 1)} />
+            <PaginationNext
+              className="cursor-pointer"
+              onClick={() => setPage(currentPage + 1)}
+            />
           </PaginationItem>
         )}
       </PaginationContent>

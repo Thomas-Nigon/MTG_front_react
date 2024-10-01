@@ -1,9 +1,9 @@
 import BrowsePagination from "@/pages/browse/components/Pagination/BrowsePagination";
-import BrowserFilter from "../BrowserFilter/BrowserFilter";
 
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useSelector } from "react-redux";
+import BrowserFilter from "../BrowserFilter/BrowserFilter";
 import { RootState } from "@/store";
 
 interface BrowserFilterBarProps {
@@ -21,7 +21,7 @@ const BrowserFilterBar = ({
   setCurrentPage,
   pageCount,
 }: BrowserFilterBarProps) => {
-  const [pageSize, setPageSize] = useState("100");
+  const [pageSize, setPageSize] = useState("10");
   const [color, setColor] = useState("");
   const [type, setType] = useState("");
   const [rarity, setRarity] = useState("");
@@ -31,8 +31,16 @@ const BrowserFilterBar = ({
     setCardQueries(
       `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${set}`
     );
-    console.log(cardQueries);
-  }, [pageSize, currentPage, color, type, rarity, set]);
+  }, [
+    pageSize,
+    currentPage,
+    color,
+    type,
+    rarity,
+    set,
+    cardQueries,
+    setCardQueries,
+  ]);
 
   const resetFilters = () => {
     setColor("");
@@ -94,7 +102,7 @@ const BrowserFilterBar = ({
           pageCount={pageCount}
         />
         <BrowserFilter
-          filterName="size"
+          filterName="10"
           filterContent={pageSizeFilter}
           setFilter={setPageSize}
         />
