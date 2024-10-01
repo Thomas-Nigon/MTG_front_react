@@ -31,8 +31,16 @@ const BrowserFilterBar = ({
     setCardQueries(
       `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${set}`
     );
-    console.log(cardQueries);
-  }, [pageSize, currentPage, color, type, rarity, set]);
+  }, [
+    pageSize,
+    currentPage,
+    color,
+    type,
+    rarity,
+    set,
+    cardQueries,
+    setCardQueries,
+  ]);
 
   const resetFilters = () => {
     setColor("");

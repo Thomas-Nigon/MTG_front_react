@@ -8,6 +8,7 @@ export default function Search() {
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [currentCard, setCurrentCard] = useState<CardInterface | null>(null);
+
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     try {
@@ -39,7 +40,6 @@ export default function Search() {
               className="hover:bg-gray-100 hover:text-black p-1 cursor-pointer "
               key={card.id}
               onClick={() => {
-                console.log("click");
                 setInputValue(card.name);
                 setCurrentCard(card);
                 setIsFocused(false);

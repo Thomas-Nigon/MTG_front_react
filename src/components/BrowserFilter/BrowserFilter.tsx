@@ -12,12 +12,6 @@ interface BrowserFilterProps {
   setFilter: (filter: string) => void;
 }
 const handleChange = (value: string, setFilter: (filter: string) => void) => {
-  console.log("clicked");
-  console.log(value);
-  setFilter(value);
-};
-const test = (value: string, setFilter: (filter: string) => void) => {
-  console.log(value);
   setFilter(value);
 };
 
@@ -35,7 +29,7 @@ const BrowserFilter = ({
         <SelectContent>
           {filterContent.map((item) => (
             <SelectItem
-              onClick={() => test(item.value, setFilter)}
+              onClick={() => handleChange(item.value, setFilter)}
               key={item.name}
               value={item.value}
             >
