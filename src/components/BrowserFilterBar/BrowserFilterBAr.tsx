@@ -59,30 +59,11 @@ const BrowserFilterBar = ({
   const colorFilter = useSelector((state: RootState) => state.filterColor.list);
   const filterArray = [
     {
-      name: "Color 1",
+      name: "Color ",
       filterContent: colorFilter,
       setFilter: setColor,
     },
-    {
-      name: "Color 2",
-      filterContent: colorFilter,
-      setFilter: setColor,
-    },
-    {
-      name: "Color 3",
-      filterContent: colorFilter,
-      setFilter: setColor,
-    },
-    {
-      name: "Color 4",
-      filterContent: colorFilter,
-      setFilter: setColor,
-    },
-    {
-      name: "Color 5",
-      filterContent: colorFilter,
-      setFilter: setColor,
-    },
+
     {
       name: "Rarity",
       filterContent: rarityFilter,

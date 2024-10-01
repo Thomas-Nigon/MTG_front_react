@@ -11,7 +11,6 @@ export default function Browse() {
   const [cardList, setCardList] = useState<CardInterface[]>([]);
   const [cardsQueries, setCardQueries] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pageCount, setPageCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [currentDeck, setcurrentDeck] = useState<CardInterface[]>([]);
