@@ -94,7 +94,7 @@ const BrowserFilterBar = ({
           pageCount={pageCount}
         />
         <BrowserFilter
-          filterName="size"
+          filterName="10"
           filterContent={pageSizeFilter}
           setFilter={setPageSize}
         />
