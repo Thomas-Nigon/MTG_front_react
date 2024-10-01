@@ -4,8 +4,8 @@ import { CardInterface, CardPromise } from "@/types-d";
 
 import SingleCard from "@/components/SingleCard/SingleCard";
 import BrowseSideMenu from "@/components/BrowseSideMenu/BrowseSideMenu";
-import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBar";
 import BrowsePagination from "./components/Pagination/BrowsePagination";
+import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBAr";
 
 export default function Browse() {
   const [cardList, setCardList] = useState<CardInterface[]>([]);

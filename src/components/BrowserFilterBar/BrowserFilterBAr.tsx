@@ -1,9 +1,9 @@
 import BrowsePagination from "@/pages/browse/components/Pagination/BrowsePagination";
-import BrowserFilter from "../BrowserFilter/BrowserFilter";
 
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useSelector } from "react-redux";
+import BrowserFilter from "../BrowserFilter/BrowserFilter";
 import { RootState } from "@/store";
 
 interface BrowserFilterBarProps {
@@ -21,7 +21,7 @@ const BrowserFilterBar = ({
   setCurrentPage,
   pageCount,
 }: BrowserFilterBarProps) => {
-  const [pageSize, setPageSize] = useState("100");
+  const [pageSize, setPageSize] = useState("10");
   const [color, setColor] = useState("");
   const [type, setType] = useState("");
   const [rarity, setRarity] = useState("");
