@@ -45,3 +45,8 @@ export interface CardPromise {
   page: number;
   pageCount: number;
 }
+
+export interface ExtensionInterface {
+  name: string;
+  value: string;
+}
