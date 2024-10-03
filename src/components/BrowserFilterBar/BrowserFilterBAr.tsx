@@ -5,10 +5,13 @@ import { Button } from "../ui/button";
 import { useSelector } from "react-redux";
 import BrowserFilter from "../BrowserFilter/BrowserFilter";
 import { RootState } from "@/store";
+import extensionStore from "@/lib/ZustandStores/store";
+import { useStore } from "zustand";
+import { getExtensionList } from "@/lib/getExtensionList";
 
 interface BrowserFilterBarProps {
-  setCardQueries: (queries: string) => void;
   cardQueries: string;
+  setCardQueries: (queries: string) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   pageCount: number;
@@ -25,21 +28,23 @@ const BrowserFilterBar = ({
   const [color, setColor] = useState("");
   const [type, setType] = useState("");
   const [rarity, setRarity] = useState("");
-  const [set, setSet] = useState("");
+  const [extension, setExtension] = useState("");
 
   useEffect(() => {
+    getExtensionList();
     setCardQueries(
-      `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${set}`
+      `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${extension}`
     );
+    console.log("query", cardQueries);
   }, [
-    pageSize,
-    currentPage,
-    color,
-    type,
-    rarity,
-    set,
     cardQueries,
+    color,
+    currentPage,
+    extension,
+    pageSize,
+    rarity,
     setCardQueries,
+    type,
   ]);
 
   const resetFilters = () => {
@@ -61,6 +66,14 @@ const BrowserFilterBar = ({
     { name: "100", value: "100" },
   ];
 
+  const extensionList = useStore(extensionStore, (state) =>
+    state.extensionList.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    })
+  );
+
   const rarityFilter = useSelector(
     (state: RootState) => state.filterRarity.list
   );
@@ -76,6 +89,11 @@ const BrowserFilterBar = ({
       name: "Rarity",
       filterContent: rarityFilter,
       setFilter: setRarity,
+    },
+    {
+      name: "Extensions",
+      filterContent: extensionList,
+      setFilter: setExtension,
     },
   ];
 

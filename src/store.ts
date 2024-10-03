@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filterColorReducer from "./Reducers/filterColorReducer";
 import filterRarityReducer from "./Reducers/filterRarityReducer";
+import filterSetReducer from "./Reducers/filterSetReducer";
 
 export const store = configureStore({
   reducer: {
     filterColor: filterColorReducer,
     filterRarity: filterRarityReducer,
+    filterSet: filterSetReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
