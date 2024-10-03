@@ -9,6 +9,8 @@ import User from "./pages/user/User";
 import Admin from "./pages/admin/Admin";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { isAdmin, isLoggedIn } from "./lib/checkAcces";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/browse",

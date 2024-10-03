@@ -1,9 +1,9 @@
-export type User = {
-  id: number | null;
-  name: string | null;
+export interface UserInterface {
+  id?: number;
+  name?: string;
   email: string;
   password: string;
-};
+}
 export type registredUser = {
   email: string;
   password: string;
