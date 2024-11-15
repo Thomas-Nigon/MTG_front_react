@@ -5,6 +5,10 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { IoLogInOutline } from "react-icons/io5";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+
+import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -106,6 +110,8 @@ export default function Navbar() {
             <IoLogInOutline size={32} />
           </button>
         )}
+        <TbLayoutSidebarLeftCollapse size={24} />
+        <TbLayoutSidebarLeftExpand size={24} />
       </article>
     </nav>
   );

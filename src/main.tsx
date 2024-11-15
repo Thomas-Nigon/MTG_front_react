@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Browse />,
       },
       {
-        path: "/user",
+        path: "/users/:id",
         element: (
           <PrivateRoute accessRule={isLoggedIn}>
             <User />
