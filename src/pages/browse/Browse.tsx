@@ -1,6 +1,6 @@
 import styles from "./browse.module.css";
 import { useEffect, useState } from "react";
-import { CardInterface } from "@/types-d";
+import { CardInterface, cardStackInterface } from "@/types-d";
 
 import SingleCard from "@/components/SingleCard/SingleCard";
 import BrowseSideMenu from "@/components/BrowseSideMenu/BrowseSideMenu";
@@ -14,7 +14,7 @@ export default function Browse() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentDeck, setcurrentDeck] = useState<CardInterface[]>([]);
+  const [currentDeck, setcurrentDeck] = useState<cardStackInterface[]>([]);
 
   const fetchData = async (cardsQueries: string) => {
     const data = await getAllCards(cardsQueries);
@@ -29,19 +29,20 @@ export default function Browse() {
 
   const AddCard = (card: CardInterface) => {
     setIsOpen(true);
-    if (!currentDeck.find((c) => c.name === card.name)) {
-      setcurrentDeck([...currentDeck, { ...card, quantity: 1 }]);
+    if (!currentDeck.find((c) => c.card.name === card.name)) {
+      setcurrentDeck([...currentDeck, { card, quantity: 1 }]);
     } else {
       setcurrentDeck(
         currentDeck.map((c) =>
-          c.name === card.name ? { ...c, quantity: c.quantity + 1 } : c
+          c.card.name === card.name ? { ...c, quantity: c.quantity + 1 } : c
         )
       );
+      console.log("currentDeck:", currentDeck);
     }
   };
 
   const RemoveCard = (card: CardInterface) => {
-    setcurrentDeck(currentDeck.filter((c) => c.name !== card.name));
+    setcurrentDeck(currentDeck.filter((c) => c.card.name !== card.name));
   };
 
   return (

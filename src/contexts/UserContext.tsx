@@ -2,11 +2,11 @@ import { createContext, useState } from "react";
 import { myUserContext, UserContextType } from "../types-d";
 
 const defaultUser: myUserContext = {
-  id: "",
-  name: "",
-  email: "",
-  role: "",
-  isLogged: false,
+  id: "1",
+  name: "Thomas",
+  email: "thomas@gmail.com",
+  role: "user",
+  isLogged: true,
   avatar: "",
 };
 

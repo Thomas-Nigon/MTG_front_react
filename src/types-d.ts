@@ -24,15 +24,6 @@ export type Params = {
   };
 };
 
-export interface CardInterface {
-  id: string;
-  name: string;
-  image_uris: {
-    normal: string;
-  };
-  quantity: number;
-}
-
 export interface UserContextType {
   user: myUserContext;
   defaultUser: myUserContext;
@@ -49,4 +40,24 @@ export interface CardPromise {
 export interface ExtensionInterface {
   name: string;
   value: string;
+}
+
+export interface CardInterface {
+  id: string;
+  name: string;
+  image_uris: {
+    normal: string;
+  };
+}
+
+export interface DeckInterface {
+  id: string;
+  name: string;
+  description: string;
+  cardStacks: cardStackInterface[];
+}
+
+export interface cardStackInterface {
+  card: CardInterface;
+  quantity: number;
 }
