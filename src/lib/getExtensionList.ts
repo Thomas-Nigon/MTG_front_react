@@ -1,12 +1,20 @@
-import { ExtensionInterface } from "@/types-d";
 import extensionStore from "./ZustandStores/store";
+import { gql } from "@apollo/client";
+import { client } from "@/main";
 
-export const getExtensionList = async (): Promise<ExtensionInterface[]> => {
+export const getExtensionList = async (): Promise<void> => {
   try {
-    const response = await fetch("http://localhost:5050/cards/extensions");
-    const data: ExtensionInterface[] = await response.json();
-    extensionStore.setState({ extensionList: data });
-    return data;
+    const data = await client.query({
+      query: gql`
+        query Query {
+          getAllSets {
+            name
+            value
+          }
+        }
+      `,
+    });
+    extensionStore.setState({ extensionList: data.data.getAllSets });
   } catch (error) {
     console.error(error);
     throw error;

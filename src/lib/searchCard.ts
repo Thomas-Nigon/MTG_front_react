@@ -1,4 +1,5 @@
 import { CardInterface } from "@/types-d";
+import { gql } from "@apollo/client";
 
 export const searchCard = async (
   cardName: string
@@ -18,3 +19,15 @@ export const searchCard = async (
     throw error;
   }
 };
+
+export const GET_CARDS = gql`
+  query GetCardByName($name: String!) {
+    getCardByName(name: $name) {
+      id
+      name
+      image_uris {
+        normal
+      }
+    }
+  }
+`;

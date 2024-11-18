@@ -6,8 +6,8 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { IoLogInOutline } from "react-icons/io5";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
-import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+//import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+//import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +29,8 @@ export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   //const currentRoute = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {}, [user, setUser]);
 
   const handleLogOut = () => {
     clearUser();
@@ -110,8 +112,8 @@ export default function Navbar() {
             <IoLogInOutline size={32} />
           </button>
         )}
-        <TbLayoutSidebarLeftCollapse size={24} />
-        <TbLayoutSidebarLeftExpand size={24} />
+        {/*         <TbLayoutSidebarLeftCollapse size={24} />
+        <TbLayoutSidebarLeftExpand size={24} /> */}
       </article>
     </nav>
   );

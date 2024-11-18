@@ -16,12 +16,21 @@ import { useForm } from "react-hook-form";
 
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { createUser } from "@/lib/createUser";
-import { UserInterface } from "@/types-d";
+
+import { CREATE_USER } from "@/lib/createUser";
+import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterComponent() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [createUser] = useMutation(CREATE_USER, {
+    onCompleted: () => {
+      console.log("user created");
+      navigate("/login");
+    },
+  });
 
   const formSchema = z
     .object({
@@ -65,19 +74,16 @@ export default function RegisterComponent() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("coucou");
     console.log(values);
     const user = {
       username: values.username,
       email: values.email,
       password: values.password,
     };
-    try {
-      const data: UserInterface = await createUser(user);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
+
+    createUser({
+      variables: { data: user },
+    });
   }
 
   return (

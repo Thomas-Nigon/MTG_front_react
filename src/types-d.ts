@@ -43,7 +43,7 @@ export interface ExtensionInterface {
 }
 
 export interface CardInterface {
-  id: string;
+  card_id: string;
   name: string;
   image_uris: {
     normal: string;
@@ -60,4 +60,13 @@ export interface DeckInterface {
 export interface cardStackInterface {
   card: CardInterface;
   quantity: number;
+}
+
+export interface cardQueryInterface {
+  colors: string;
+  rarity: string;
+  size: number;
+  currentPage: number;
+  set: string;
+  type: string;
 }

@@ -1,31 +1,60 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./browse.module.css";
 import { useEffect, useState } from "react";
-import { CardInterface, cardStackInterface } from "@/types-d";
+import {
+  CardInterface,
+  cardQueryInterface,
+  cardStackInterface,
+} from "@/types-d";
 
 import SingleCard from "@/components/SingleCard/SingleCard";
 import BrowseSideMenu from "@/components/BrowseSideMenu/BrowseSideMenu";
 import BrowsePagination from "./components/Pagination/BrowsePagination";
 import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBAr";
-import { getAllCards } from "@/lib/getAllCards";
+import { GET_ALL_CARDS } from "@/lib/getAllCards";
+import { useLazyQuery } from "@apollo/client";
+import { getExtensionList } from "@/lib/getExtensionList";
 
 export default function Browse() {
-  const [cardList, setCardList] = useState<CardInterface[]>([]);
-  const [cardsQueries, setCardQueries] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  //const [cardList, setCardList] = useState<CardInterface[]>([]);
+  const [cardsQueries, setCardQueries] = useState<cardQueryInterface>({
+    colors: "",
+    rarity: "",
+    size: 100,
+    currentPage: 1,
+    set: "",
+    type: "",
+  });
+  //const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [currentDeck, setcurrentDeck] = useState<cardStackInterface[]>([]);
 
-  const fetchData = async (cardsQueries: string) => {
-    const data = await getAllCards(cardsQueries);
-    console.log(data.data);
-    setCardList(data.data);
-    setPageCount(data.pageCount);
-    return data;
+  const [getCards, { data, loading, error }] = useLazyQuery(GET_ALL_CARDS, {
+    variables: {
+      data: cardsQueries,
+      size: cardsQueries.size,
+      page: cardsQueries.currentPage,
+    },
+    onCompleted: (data) => {
+      setPageCount(data.getCardsWithQuery.pageCount);
+    },
+  });
+
+  const fetchData = async (cardsQueries: cardQueryInterface) => {
+    getCards({
+      variables: {
+        data: cardsQueries,
+        size: cardsQueries.size,
+        page: cardsQueries.currentPage,
+      },
+    });
+    setPageCount(10);
   };
   useEffect(() => {
     fetchData(cardsQueries);
-  }, [cardsQueries]);
+    getExtensionList();
+  }, [cardsQueries, data]);
 
   const AddCard = (card: CardInterface) => {
     setIsOpen(true);
@@ -52,16 +81,19 @@ export default function Browse() {
         <BrowserFilterBar
           cardQueries={cardsQueries}
           setCardQueries={setCardQueries}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          //currentPage={cardsQueries.currentPage}
+          //setCurrentPage={setCurrentPage}
           pageCount={pageCount}
         />
       </header>
       <div className="flex flex-row">
         <section className={styles.cardsContainer}>
-          {cardList.map((card) => (
-            <SingleCard key={card.id} card={card} addCard={AddCard} />
-          ))}
+          {loading && <p>Loading Cards...</p>}
+          {error && <p>Error: {error.message}</p>}
+          {data &&
+            data.getCardsWithQuery.cards.map((card: CardInterface) => (
+              <SingleCard key={card.card_id} card={card} addCard={AddCard} />
+            ))}
         </section>
         <BrowseSideMenu
           isOpen={isOpen}
@@ -73,8 +105,8 @@ export default function Browse() {
       </div>
       <footer>
         <BrowsePagination
-          currentPage={currentPage}
-          setPage={setCurrentPage}
+          cardQueries={cardsQueries}
+          setCardQueries={setCardQueries}
           pageCount={pageCount}
         />
       </footer>

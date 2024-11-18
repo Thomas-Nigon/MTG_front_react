@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input";
-import { searchCard } from "@/lib/searchCard";
+import { GET_CARDS } from "@/lib/searchCard";
 import { useState } from "react";
 import { CardInterface } from "@/types-d";
+import { useLazyQuery } from "@apollo/client";
 
 export default function Search() {
   const [searchResults, setSearchResults] = useState<CardInterface[]>([]);
@@ -9,13 +10,20 @@ export default function Search() {
   const [isFocused, setIsFocused] = useState(false);
   const [currentCard, setCurrentCard] = useState<CardInterface | null>(null);
 
+  const [getCardByName, { error }] = useLazyQuery(GET_CARDS, {
+    variables: { name: inputValue },
+    onCompleted: (data) => {
+      setSearchResults(data.getCardByName);
+      setCurrentCard(data.getCardByName[0]);
+    },
+  });
+
+  if (error) return <p>Error: {error.message}</p>;
+
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     try {
-      const results = await searchCard(e.target.value);
-      const data = await results;
-      setSearchResults(data);
-      setCurrentCard(searchResults[0]);
+      getCardByName({ variables: { name: e.target.value } });
     } catch (error) {
       console.error(error);
     }

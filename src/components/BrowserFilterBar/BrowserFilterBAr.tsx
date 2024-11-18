@@ -9,19 +9,21 @@ import extensionStore from "@/lib/ZustandStores/store";
 import { useStore } from "zustand";
 import { getExtensionList } from "@/lib/getExtensionList";
 
+import { cardQueryInterface } from "@/types-d";
+
 interface BrowserFilterBarProps {
-  cardQueries: string;
-  setCardQueries: (queries: string) => void;
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
+  cardQueries: cardQueryInterface;
+  setCardQueries: (queries: cardQueryInterface) => void;
+  // currentPage: number;
+  // setCurrentPage: (page: number) => void;
   pageCount: number;
 }
 
 const BrowserFilterBar = ({
   cardQueries,
   setCardQueries,
-  currentPage,
-  setCurrentPage,
+  /*      currentPage,
+      setCurrentPage, */
   pageCount,
 }: BrowserFilterBarProps) => {
   const [pageSize, setPageSize] = useState("10");
@@ -32,14 +34,21 @@ const BrowserFilterBar = ({
 
   useEffect(() => {
     getExtensionList();
-    setCardQueries(
+    /*   setCardQueries(
       `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${extension}`
-    );
-    console.log("query", cardQueries);
+    ); */
+    setCardQueries({
+      ...cardQueries,
+      size: parseInt(pageSize),
+      colors: color,
+      type: type,
+      rarity: rarity,
+      set: extension,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    cardQueries,
     color,
-    currentPage,
+    cardQueries.currentPage,
     extension,
     pageSize,
     rarity,
@@ -51,11 +60,11 @@ const BrowserFilterBar = ({
     setColor("");
     setType("");
     setRarity("");
-    setSet("");
+    setExtension("");
     setPageSize("100");
-    setCardQueries(
+    /*  setCardQueries(
       `&size=${pageSize}&page=${currentPage}&colors=${color}&type=${type}&rarity=${rarity}&set=${set}`
-    );
+    ); */
     window.location.reload();
   };
 
@@ -66,12 +75,9 @@ const BrowserFilterBar = ({
     { name: "100", value: "100" },
   ];
 
-  const extensionList = useStore(extensionStore, (state) =>
-    state.extensionList.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    })
+  const extensionList = useStore(
+    extensionStore,
+    (state) => state.extensionList
   );
 
   const rarityFilter = useSelector(
@@ -115,8 +121,8 @@ const BrowserFilterBar = ({
       </ul>
       <article className="flex flex-col gap-4 m-5 justify-center items-center">
         <BrowsePagination
-          currentPage={currentPage}
-          setPage={setCurrentPage}
+          cardQueries={cardQueries}
+          setCardQueries={setCardQueries}
           pageCount={pageCount}
         />
         <BrowserFilter
