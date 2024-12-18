@@ -1,5 +1,5 @@
 # Use the official Node.js image.
-FROM node:16-alpine
+FROM node:lts-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -15,9 +15,6 @@ COPY . .
 
 # Build the React application
 RUN npm run build
-
-# Expose the port the app runs on
-EXPOSE 3000
 
 # Start the application
 CMD ["npm","run", "dev"]
