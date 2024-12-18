@@ -7,26 +7,32 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { cardQueryInterface } from "@/types-d";
 
 interface BrowsePaginationProps {
-  currentPage: number;
-  setPage: (page: number) => void;
+  cardQueries: cardQueryInterface;
+  setCardQueries: (queries: cardQueryInterface) => void;
   pageCount: number;
 }
 
 function BrowsePagination({
-  currentPage,
-  setPage,
+  cardQueries,
+  setCardQueries,
   pageCount,
 }: BrowsePaginationProps) {
   return (
     <Pagination>
       <PaginationContent>
-        {currentPage > 1 && (
+        {cardQueries.currentPage > 1 && (
           <PaginationItem>
             <PaginationPrevious
               className="cursor-pointer"
-              onClick={() => setPage(currentPage - 1)}
+              onClick={() =>
+                setCardQueries({
+                  ...cardQueries,
+                  currentPage: cardQueries.currentPage - 1,
+                })
+              }
             />
           </PaginationItem>
         )}
@@ -34,26 +40,41 @@ function BrowsePagination({
           <PaginationItem>
             <PaginationLink
               className="cursor-pointer"
-              onClick={() => setPage(currentPage)}
+              onClick={() =>
+                setCardQueries({
+                  ...cardQueries,
+                  currentPage: cardQueries.currentPage,
+                })
+              }
             >
-              {currentPage}
+              {cardQueries.currentPage}
             </PaginationLink>
 
-            {currentPage + 1 < pageCount && (
+            {cardQueries.currentPage + 1 < pageCount && (
               <PaginationLink
                 className="cursor-pointer"
-                onClick={() => setPage(currentPage + 1)}
+                onClick={() =>
+                  setCardQueries({
+                    ...cardQueries,
+                    currentPage: cardQueries.currentPage + 1,
+                  })
+                }
               >
-                {currentPage + 1}
+                {cardQueries.currentPage + 1}
               </PaginationLink>
             )}
 
-            {currentPage + 2 < pageCount && (
+            {cardQueries.currentPage + 2 < pageCount && (
               <PaginationLink
                 className="cursor-pointer"
-                onClick={() => setPage(currentPage + 2)}
+                onClick={() =>
+                  setCardQueries({
+                    ...cardQueries,
+                    currentPage: cardQueries.currentPage + 2,
+                  })
+                }
               >
-                {currentPage + 2}
+                {cardQueries.currentPage + 2}
               </PaginationLink>
             )}
           </PaginationItem>
@@ -63,16 +84,26 @@ function BrowsePagination({
           <PaginationEllipsis />
           <PaginationLink
             className="cursor-pointer"
-            onClick={() => setPage(pageCount)}
+            onClick={() =>
+              setCardQueries({
+                ...cardQueries,
+                currentPage: pageCount,
+              })
+            }
           >
             {pageCount}
           </PaginationLink>
         </PaginationItem>
-        {currentPage + 1 < pageCount && (
+        {cardQueries.currentPage + 1 < pageCount && (
           <PaginationItem>
             <PaginationNext
               className="cursor-pointer"
-              onClick={() => setPage(currentPage + 1)}
+              onClick={() =>
+                setCardQueries({
+                  ...cardQueries,
+                  currentPage: cardQueries.currentPage + 1,
+                })
+              }
             />
           </PaginationItem>
         )}

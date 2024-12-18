@@ -11,6 +11,12 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { isAdmin, isLoggedIn } from "./lib/checkAcces";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+
+export const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql", // Replace with your GraphQL server URL
+  cache: new InMemoryCache(),
+});
 
 const router = createBrowserRouter([
   {
@@ -54,6 +60,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   </StrictMode>
 );

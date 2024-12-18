@@ -18,7 +18,7 @@ interface SingleCardProps {
 
 const SingleCard = ({ card, addCard }: SingleCardProps) => {
   return (
-    <article key={card.id + card.name}>
+    <article key={card.card_id + card.name}>
       <Card className="w-[300px] bg-accent">
         <CardHeader>
           <CardTitle className={styles.truncate}>{card.name}</CardTitle>

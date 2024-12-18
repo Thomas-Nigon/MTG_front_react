@@ -1,18 +1,12 @@
-import { UserInterface } from "@/types-d";
+import { gql } from "@apollo/client";
 
-export const createUser = async (user: UserInterface) => {
-  try {
-    const response = await fetch("http://localhost:5050/users/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+export const CREATE_USER = gql`
+  mutation CreateUser($data: UserInput!) {
+    createUser(data: $data) {
+      id
+      username
+      email
+      password
+    }
   }
-};
+`;
