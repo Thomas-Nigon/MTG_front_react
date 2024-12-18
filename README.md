@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+## Running the Application with Docker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run the application using Docker, follow these steps:
 
-Currently, two official plugins are available:
+1. **Ensure Docker is installed**: Make sure you have Docker and Docker Compose installed on your machine.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Navigate to the project directory**: Open a terminal and navigate to the root directory of your project where the `compose.dev.yaml` file is located.
 
-## Expanding the ESLint configuration
+3. **Build and start the containers**: Use the following command to build the Docker image and start the containers:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   ```bash
+   docker-compose -f compose.dev.yaml up --build
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+   This command will build the Docker image based on the `Dockerfile` and start the containers as defined in the `compose.dev.yaml` file.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. **Access the application**: Once the containers are up and running, you can access the application in your web browser at `http://localhost:8081`.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+5. **Stop the containers**: To stop the running containers, press `Ctrl + C` in the terminal where the containers are running. Alternatively, you can run:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   ```bash
+   docker-compose -f compose.dev.yaml down
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   This command will stop and remove the containers.
+
+6. **Run in detached mode (optional)**: If you prefer to run the containers in the background, use the `-d` flag:
+
+   ```bash
+   docker-compose -f compose.dev.yaml up -d
+   ```
+
+   To stop the containers running in detached mode, use the `docker-compose down` command as shown above.

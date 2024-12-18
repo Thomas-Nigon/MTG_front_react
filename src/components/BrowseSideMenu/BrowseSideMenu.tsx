@@ -83,7 +83,7 @@ const BrowseSideMenu = ({
           <ul>
             {currentDeck.map((card) => (
               <li
-                key={card.card.id}
+                key={card.card.card_id}
                 className="flex flex-row items-center justify-between mb-2"
               >
                 <HoverCard openDelay={100}>
