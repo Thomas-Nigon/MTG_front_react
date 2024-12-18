@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { useContext, useEffect } from "react";
 import { UserContext } from "@/contexts/UserContext";
+import { MutationAuthArgs } from "@/lib/graphQL/generated/graphql-types";
 
 export default function LoginComponent() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function LoginComponent() {
 
   useEffect(() => {}, [user, setUser]);
 
-  const [loginUser] = useMutation(LOGIN, {
+  const [loginUser] = useMutation<MutationAuthArgs>(LOGIN, {
     onCompleted: () => {
       setUser({
         id: "1",
@@ -40,8 +41,7 @@ export default function LoginComponent() {
       navigate("/");
     },
     onError: (error) => {
-      console.error("Mutation encountered an error:", error);
-      // Handle error
+      console.error("Error Logging in:", error);
     },
   });
 

@@ -20,12 +20,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { CREATE_USER } from "@/lib/createUser";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { MutationCreateUserArgs } from "@/lib/graphQL/generated/graphql-types";
 
 export default function RegisterComponent() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [createUser] = useMutation(CREATE_USER, {
+  const [createUser] = useMutation<MutationCreateUserArgs>(CREATE_USER, {
     onCompleted: () => {
       console.log("user created");
       navigate("/login");

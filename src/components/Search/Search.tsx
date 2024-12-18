@@ -1,16 +1,26 @@
 import { Input } from "@/components/ui/input";
 import { GET_CARDS } from "@/lib/searchCard";
 import { useState } from "react";
-import { CardInterface } from "@/types-d";
 import { useLazyQuery } from "@apollo/client";
+import {
+  GetCardByNameQuery,
+  GetCardByNameQueryVariables,
+} from "@/lib/graphQL/generated/graphql-types";
 
 export default function Search() {
-  const [searchResults, setSearchResults] = useState<CardInterface[]>([]);
+  const [searchResults, setSearchResults] = useState<
+    GetCardByNameQuery["getCardByName"]
+  >([]);
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [currentCard, setCurrentCard] = useState<CardInterface | null>(null);
+  const [currentCard, setCurrentCard] = useState<
+    GetCardByNameQuery["getCardByName"][0] | null
+  >(null);
 
-  const [getCardByName, { error }] = useLazyQuery(GET_CARDS, {
+  const [getCardByName, { error }] = useLazyQuery<
+    GetCardByNameQuery,
+    GetCardByNameQueryVariables
+  >(GET_CARDS, {
     variables: { name: inputValue },
     onCompleted: (data) => {
       setSearchResults(data.getCardByName);

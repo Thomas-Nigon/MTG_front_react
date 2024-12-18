@@ -14,23 +14,28 @@ import BrowserFilterBar from "@/components/BrowserFilterBar/BrowserFilterBAr";
 import { GET_ALL_CARDS } from "@/lib/getAllCards";
 import { useLazyQuery } from "@apollo/client";
 import { getExtensionList } from "@/lib/getExtensionList";
+import {
+  GetCardsWithQueryQuery,
+  GetCardsWithQueryQueryVariables,
+} from "@/lib/graphQL/generated/graphql-types";
 
 export default function Browse() {
-  //const [cardList, setCardList] = useState<CardInterface[]>([]);
   const [cardsQueries, setCardQueries] = useState<cardQueryInterface>({
     colors: "",
     rarity: "",
-    size: 100,
+    size: 10,
     currentPage: 1,
     set: "",
     type: "",
   });
-  //const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [currentDeck, setcurrentDeck] = useState<cardStackInterface[]>([]);
 
-  const [getCards, { data, loading, error }] = useLazyQuery(GET_ALL_CARDS, {
+  const [getCards, { data, loading, error }] = useLazyQuery<
+    GetCardsWithQueryQuery,
+    GetCardsWithQueryQueryVariables
+  >(GET_ALL_CARDS, {
     variables: {
       data: cardsQueries,
       size: cardsQueries.size,
@@ -81,8 +86,6 @@ export default function Browse() {
         <BrowserFilterBar
           cardQueries={cardsQueries}
           setCardQueries={setCardQueries}
-          //currentPage={cardsQueries.currentPage}
-          //setCurrentPage={setCurrentPage}
           pageCount={pageCount}
         />
       </header>

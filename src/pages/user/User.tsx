@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { UserContext } from "@/contexts/UserContext";
 import { getDecks } from "@/lib/getDecks";
 import { DeckInterface } from "@/types-d";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function User() {
   const { user } = useContext(UserContext);
@@ -25,7 +26,7 @@ export default function User() {
             <article>
               {deck.cardStacks &&
                 deck.cardStacks.map((cardStack) => (
-                  <div key={cardStack.card.id}>
+                  <div key={cardStack.card.card_id}>
                     <p>{cardStack.card.name}</p>
                     <img
                       src={cardStack.card.image_uris.normal}
