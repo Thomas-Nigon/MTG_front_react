@@ -8,7 +8,7 @@ export const createDeck = async (
   const description = "This is a test description";
   console.log(deck, name);
   try {
-    const response = await fetch("http://localhost:5050/decks/create", {
+    const response = await fetch("http://localhost:4000/decks/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

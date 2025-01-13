@@ -7,10 +7,10 @@ import { useContext, useEffect, useState } from "react";
 export default function User() {
   const { user } = useContext(UserContext);
   const id = user.id;
-  const [decks, setDecks] = useState<DeckInterface[]>([]);
+  const decks: DeckInterface[] = [];
+  // const [decks, setDecks] = useState<DeckInterface[]>([]);
   useEffect(() => {
-    getDecks(id).then(setDecks);
-    console.log("decks", decks);
+    console.log("decks add service to return user decks");
   }, []);
 
   return (
